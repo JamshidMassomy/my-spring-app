@@ -43,7 +43,7 @@ public final class TicketServiceImpl implements ITicketService {
     @Override
     public TicketResponseDto issueTicket(final Long userId) {
         final TicketResponseDto ticketResponseDto = new TicketResponseDto();
-        if (countExistingTickets() > MAX_TICKET) {
+        if (countExistingTickets() >= MAX_TICKET) {
             throw new ResponseStatusException(HttpStatus.GONE, OUT_OF_TICKET);
         }
         if (getUserTicket(userId) == null) {

@@ -20,8 +20,7 @@ public class Ticket {
     private Integer ticketNumber;
 
     @OneToOne
-    @JoinColumn(name = "user_id")
-    @Column(unique = true)
+    @JoinColumn(name = "user_id", unique = true)
     private User user;
 
 }
