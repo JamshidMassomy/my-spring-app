@@ -13,14 +13,14 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @EnableSwagger2
 public class SwaggerConfig  {
 
+    private static final String prefix = "/api/.*";
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.any())
-                .paths(regex("/api/.*"))
+                .paths(regex(prefix))
                 .build();
-
     }
 
 

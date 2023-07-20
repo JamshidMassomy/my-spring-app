@@ -22,15 +22,26 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
-	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.postgresql:r2dbc-postgresql")
+	implementation("org.postgresql:postgresql")
+
+
+	// Liquibase
+	implementation ("org.liquibase:liquibase-core")
+	implementation ("org.springframework.boot:spring-boot-starter-data-jdbc")
+
+
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("io.springfox:springfox-boot-starter:3.0.0")
+
+//	io.r2dbc:r2dbc-postgresql
+//	org.postgresql:postgresql
+
 	compileOnly("org.projectlombok:lombok")
-	runtimeOnly("com.h2database:h2")
-	runtimeOnly("io.r2dbc:r2dbc-h2")
+	// runtimeOnly("com.h2database:h2")
+
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")

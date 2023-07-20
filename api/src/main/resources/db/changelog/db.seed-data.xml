@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="2" author="jamshid">
+        <sql>
+            INSERT INTO "user"(
+                id, first_name, personal_code)
+            VALUES ('20004760-2654-11ee-be56-0242ac120232', 'Lize', '8709079234234');
+        </sql>
+    </changeSet>
+</databaseChangeLog>
