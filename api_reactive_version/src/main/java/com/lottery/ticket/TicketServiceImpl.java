@@ -11,7 +11,7 @@ import java.util.*;
 
 @Service
 @Slf4j
-public final class TicketServiceImpl implements ILotteryService {
+public class TicketServiceImpl implements ILotteryService {
 
     private static final int MAX_TICKET = 2;
     private static final String TICKET_ALREADY_EXISTS = "Ticket already exists for the user with ID: ";
@@ -22,29 +22,28 @@ public final class TicketServiceImpl implements ILotteryService {
         this.ticketRepository = ticketRepository;
     }
 
-
-    private static int generateRandomLotteryNumber() {
+    public static int generateRandomLotteryNumber() {
         final Random random = new Random();
         return random.nextInt(30) + 1;
     }
 
-    private Mono<Integer> getTicketCounts() {
+    public Mono<Integer> getTicketCounts() {
         return ticketRepository.countTickets();
     }
 
-    private Mono<Boolean> isTicketCountsExceeded() {
+    public Mono<Boolean> isTicketCountsExceeded() {
         return this.getTicketCounts()
                 .map(ticketCount -> ticketCount > MAX_TICKET);
     }
 
 
-    private Mono<Ticket> findExistingTicket(Long userId) {
+    public Mono<Ticket> findExistingTicket(final Long userId) {
         return ticketRepository.findByUserId(userId);
     }
 
 
 
-    private Mono<Ticket> saveNewTicket(Long userId) {
+    private Mono<Ticket> saveNewTicket(final Long userId) {
         final Ticket ticket = Ticket.builder()
                 .ticketNumber(generateRandomLotteryNumber())
                 .userId(userId)
@@ -53,7 +52,7 @@ public final class TicketServiceImpl implements ILotteryService {
         return ticketRepository.save(ticket);
     }
 
-    private Mono<TicketResponseDto> issueTicketInternal(Long userId) {
+    public Mono<TicketResponseDto> issueTicketInternal(final Long userId) {
         final TicketResponseDto ticketResponseDto = new TicketResponseDto();
         return findExistingTicket(userId)
                 .flatMap(existingTicket -> {
@@ -76,9 +75,8 @@ public final class TicketServiceImpl implements ILotteryService {
 
 
     @Override
-    public Mono<TicketResponseDto> issueTicket(Long userId) {
+    public Mono<TicketResponseDto> issueTicket(final Long userId) {
         return issueTicketInternal(userId);
     }
-
 
 }

@@ -35,9 +35,10 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("io.springfox:springfox-boot-starter:3.0.0")
+    testImplementation("junit:junit:4.13.1")
 
 
-	compileOnly("org.projectlombok:lombok")
+    compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")

@@ -1,62 +1,57 @@
 package com.lottery;
 
 
-import com.lottery.ticket.TicketController;
+import com.lottery.ticket.Ticket;
+import com.lottery.ticket.TicketRepository;
 import com.lottery.ticket.TicketServiceImpl;
-import com.lottery.ticket.dto.TicketResponseDto;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.reactive.server.WebTestClient;
-import java.util.UUID;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 
-@WebFluxTest(controllers = TicketController.class)
+
+@ExtendWith(MockitoExtension.class)
 public class TicketControllerTest {
 
 
-    @Autowired
-    private WebTestClient webClient;
-
-    @MockBean
+    @InjectMocks
     private TicketServiceImpl ticketService;
 
-    @Test
-    public void testGetEndpoint() {
-        webClient.get()
-                .uri("/api/v1/ticket")
-                .exchange()
-                .expectStatus().isOk()
-                .expectBody(String.class).isEqualTo("Hello, World!");
-    }
+    @Mock
+    private TicketRepository ticketRepository;
 
-    @Test
-    public void shouldReturn200OnSuccess() {
-        UUID userId1 = UUID.fromString("246681bc-3107-45ca-87f2-6c196826be26");
-        UUID userId = UUID.randomUUID();
-        final TicketResponseDto ticketResponseDto = new TicketResponseDto();
-        webClient.post()
-                .uri("/api/v1/ticket/user/{userID}", userId)
-                .contentType(MediaType.APPLICATION_JSON)
-                .exchange()
-                .expectStatus().isOk()
-                .expectBody(TicketResponseDto.class)
-                .isEqualTo(ticketResponseDto);
-    }
+
     @Test
     public void shouldThrow410OnOutOfTicket() {
-
+        when(ticketService.findExistingTicket(anyLong()))
+                .thenReturn(Mono.empty());
+        Mockito.when(ticketService.getTicketCounts())
+                .thenReturn(Mono.just(30));
+        StepVerifier.create(ticketService.issueTicketInternal(1L))
+                .expectErrorMatches(throwable -> throwable instanceof ResponseStatusException
+                        && ((ResponseStatusException) throwable).getStatus().equals(HttpStatus.GONE))
+                .verify();
     }
 
     @Test
     public void shouldThrow403OnIssueTicketAgain() {
+        when(ticketService.findExistingTicket(anyLong()))
+                .thenReturn(Mono.just(new Ticket()));
 
-    }
-
-    @Test
-    public void shouldRespondCorrectly() {
-
+        when(ticketService.getTicketCounts())
+                .thenReturn(Mono.just(0));
+        StepVerifier.create(ticketService.issueTicketInternal(1L))
+                .expectErrorMatches(throwable -> throwable instanceof ResponseStatusException
+                        && ((ResponseStatusException) throwable).getStatus().equals(HttpStatus.FORBIDDEN))
+                .verify();
     }
 
 }

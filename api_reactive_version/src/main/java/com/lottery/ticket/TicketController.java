@@ -14,9 +14,7 @@ import java.util.UUID;
 @RequestMapping("api/v1/ticket")
 @Slf4j
 public final class TicketController {
-
     private final TicketServiceImpl ticketService;
-
 
     public TicketController (final TicketServiceImpl ticketService) {
         this.ticketService = ticketService;
@@ -28,15 +26,5 @@ public final class TicketController {
         log.info("request ticket by user id - {}", userId);
         return ticketService.issueTicket(userId);
     }
-
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<String> getTests() {
-        log.info("hello world endpoint {}", 1);
-        System.out.println("testing ...====== :_)");
-        return  Mono.just("Hello, World!");
-    }
-
 
 }

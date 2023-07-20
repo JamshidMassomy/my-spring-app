@@ -14,12 +14,14 @@ import javax.persistence.*;
 public class Ticket {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Integer ticketNumber;
 
-    @OneToOne()
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    @Column(unique = true)
     private User user;
 
 }

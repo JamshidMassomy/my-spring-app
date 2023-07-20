@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import springfox.documentation.annotations.Cacheable;
+
 import java.util.Date;
 import java.util.Optional;
 import java.util.Random;
@@ -29,6 +31,7 @@ public final class TicketServiceImpl implements ITicketService {
         return random.nextInt(30) + 1;
     }
 
+    @Cacheable("ticketCounts")
     private int countExistingTickets() {
         return ticketRepository.countAllTickets();
     }
@@ -36,13 +39,13 @@ public final class TicketServiceImpl implements ITicketService {
     private Ticket getUserTicket(final Long userId) {
         return ticketRepository.findTicketByUserId(userId);
     }
+
     @Override
     public TicketResponseDto issueTicket(final Long userId) {
         final TicketResponseDto ticketResponseDto = new TicketResponseDto();
         if (countExistingTickets() > MAX_TICKET) {
             throw new ResponseStatusException(HttpStatus.GONE, OUT_OF_TICKET);
         }
-
         if (getUserTicket(userId) == null) {
             final Optional<User> user = userRepository.findById(userId);
             if (user.isPresent()) {
