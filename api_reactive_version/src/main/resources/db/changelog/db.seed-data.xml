@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="2" author="jamshid">
+        <sql>
+            INSERT INTO "user"(
+                id, first_name, personal_code)
+            VALUES (1, 'Mike', '723823215343');
+
+            INSERT INTO "user"(
+                id, first_name, personal_code)
+            VALUES (2, 'Kemmo', '34543523242');
+
+
+            INSERT INTO "user"(
+                id, first_name, personal_code)
+            VALUES (3, 'Christian', '08882342342');
+
+
+            INSERT INTO "user"(
+                id, first_name, personal_code)
+            VALUES (4, 'Jason', '923423462342');
+
+            INSERT INTO "user"(
+                id, first_name, personal_code)
+            VALUES (5, 'Lise', '27882734990');
+
+
+        </sql>
+    </changeSet>
+</databaseChangeLog>
