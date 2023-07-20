@@ -36,12 +36,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("io.springfox:springfox-boot-starter:3.0.0")
 
-//	io.r2dbc:r2dbc-postgresql
-//	org.postgresql:postgresql
 
 	compileOnly("org.projectlombok:lombok")
-	// runtimeOnly("com.h2database:h2")
-
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
