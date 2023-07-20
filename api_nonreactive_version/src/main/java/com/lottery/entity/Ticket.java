@@ -11,7 +11,7 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Ticket {
+public final class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -11,13 +11,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import springfox.documentation.annotations.Cacheable;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.Optional;
 import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
-public final class TicketServiceImpl implements ITicketService {
+public class TicketServiceImpl implements ITicketService {
 
     private final TicketRepository ticketRepository;
     private final UserRepository userRepository;
@@ -41,6 +42,7 @@ public final class TicketServiceImpl implements ITicketService {
     }
 
     @Override
+    @Transactional(rollbackOn = Exception.class)
     public TicketResponseDto issueTicket(final Long userId) {
         final TicketResponseDto ticketResponseDto = new TicketResponseDto();
         if (countExistingTickets() >= MAX_TICKET) {

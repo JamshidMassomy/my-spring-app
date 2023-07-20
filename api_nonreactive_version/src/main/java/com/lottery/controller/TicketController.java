@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/ticket")
 @RequiredArgsConstructor
 @RestController
-public class TicketController {
+public final class TicketController {
 
     private final TicketServiceImpl ticketService;
     @PostMapping("user/{userId}")

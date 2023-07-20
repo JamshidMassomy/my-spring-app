@@ -10,7 +10,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class TicketResponseDto {
+public final class TicketResponseDto {
     private Integer confirmationNumber;
     private Date now;
 }

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 @Component
-public class DatabaseSeeder implements CommandLineRunner {
+public final class DatabaseSeeder implements CommandLineRunner {
     private final UserRepository userRepository;
 
     public DatabaseSeeder(UserRepository userRepository) {
