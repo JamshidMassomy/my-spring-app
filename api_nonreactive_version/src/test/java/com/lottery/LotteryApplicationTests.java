@@ -1,4 +1,4 @@
-package com.lottery.lottery;
+package com.lottery;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
