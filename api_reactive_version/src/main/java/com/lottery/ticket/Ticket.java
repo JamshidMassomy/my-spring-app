@@ -6,9 +6,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import javax.annotation.PostConstruct;
-import java.util.UUID;
-
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter(AccessLevel.PROTECTED)

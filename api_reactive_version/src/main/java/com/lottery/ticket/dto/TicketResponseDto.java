@@ -1,7 +1,6 @@
 package com.lottery.ticket.dto;
 
 import lombok.*;
-
 import java.util.Date;
 
 
