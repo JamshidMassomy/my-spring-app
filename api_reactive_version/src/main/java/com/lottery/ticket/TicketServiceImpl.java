@@ -13,7 +13,7 @@ import java.util.*;
 @Slf4j
 public class TicketServiceImpl implements ILotteryService {
 
-    private static final int MAX_TICKET = 2;
+    private static final int MAX_TICKET = 30;
     private static final String TICKET_ALREADY_EXISTS = "Ticket already exists for the user with ID: ";
     private static final String OUT_OF_TICKET = "Out of tickets";
     private final TicketRepository ticketRepository;

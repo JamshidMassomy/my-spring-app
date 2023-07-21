@@ -32,7 +32,6 @@ public class TicketServiceImpl implements ITicketService {
         return random.nextInt(30) + 1;
     }
 
-    @Cacheable("ticketCounts")
     private int countExistingTickets() {
         return ticketRepository.countAllTickets();
     }
